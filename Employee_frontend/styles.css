@@ -1,0 +1,649 @@
+/* ===========================
+   GLOBAL VARIABLES
+   =========================== */
+:root {
+    --blue-1: #0f54a3;
+    --blue-2: #417dce;
+    --accent: #2dd4bf;
+    --muted: #f5f7fb;
+    --card: #ffffff;
+    --shadow: 0 4px 12px rgba(0,0,0,0.15);
+    --radius: 12px;
+}
+
+/* ===========================
+   RESET
+   =========================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Inter, Arial, sans-serif;
+}
+
+html, body, #app {
+    height: 100%;
+    background: #eaf1ff;
+}
+
+/* ===========================
+   PAGE VISIBILITY CONTROL ⭐⭐⭐⭐⭐
+   (THE MISSING PART THAT FIXES EVERYTHING)
+   =========================== */
+
+/* Hide all pages by default */
+.page {
+    display: none;
+}
+
+/* Only the active page will be shown */
+.page.active {
+    display: block;
+}
+
+/* ===========================
+   SIDEBAR (HIDDEN INITIALLY)
+   =========================== */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 240px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--blue-1), var(--blue-2));
+    padding: 20px;
+    display: none;
+    flex-direction: column;
+    gap: 20px;
+    color: white;
+    z-index: 500;
+}
+
+.sidebar.active {
+    display: flex;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo {
+    width: 45px;
+    height: 45px;
+    background: white;
+    border-radius: 10px;
+    color: var(--blue-1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.brand-text {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.nav-btn {
+    padding: 12px;
+    background: transparent;
+    border: none;
+    color: white;
+    text-align: left;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600px;
+}
+
+.nav-btn:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+.sidebar-foot {
+    margin-top: auto;
+}
+
+.ghost {
+    padding: 10px;
+    width: 100%;
+    border-radius: 8px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+    cursor: pointer;
+}
+
+/* ===========================
+   MAIN AREA
+   =========================== */
+.main {
+    margin-left: 0;
+    padding: 20px;
+    transition: 0.3s ease;
+}
+
+/* ===========================
+   TOPBAR
+   =========================== */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.icon-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+.user-mini {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+}
+
+.user-mini img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #fff;
+}
+
+
+/* DP popup */
+.user-details-pop {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    width: 200px;
+    padding: 12px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    display: none;
+}
+
+.user-details-pop img {
+    width: 70px;
+    height: 70px;
+    border-radius: 10px;
+    display: block;
+    margin: auto;
+}
+
+.user-details-pop div {
+    margin-top: 8px;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* ===========================
+   BUTTONS
+   =========================== */
+.btn {
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn.primary {
+    background: var(--blue-1);
+    color: white;
+}
+
+.btn.ghost {
+    background: transparent;
+    border: 1px solid #ccc;
+    color: #333;
+}
+
+.btn.small {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+}
+
+/* ===========================
+   DASHBOARD CARDS
+   =========================== */
+.cards {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    min-width: 200px;
+    flex: 1;
+}
+
+.card-title {
+    font-size: 0.9rem;
+    color: var(--blue-1);
+    font-weight: 700;
+}
+
+.card-value {
+    font-size: 1.6rem;
+    margin-top: 5px;
+    font-weight: 800;
+}
+
+/* Welcome box */
+.welcome-box {
+    margin-top: 20px;
+    margin-bottom: 50px;
+    background: white;
+    padding: 20px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+.welcome-box h2{
+    color: var(--blue-1);
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.welcome-box p{
+    color: #03514b;
+    font-size: 1rem;
+}
+
+/* ===========================
+   EMPLOYEE GRID
+   =========================== */
+.employees-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.emp-card {
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    display: flex;
+    gap: 10px;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+}
+
+.emp-card img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+/* ===========================
+   TABLE STYLE
+   =========================== */
+.table-wrap {
+    margin-top: 20px;
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+/* ===========================
+   FORMS
+   =========================== */
+.form-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    max-width: 1000px;   /* THIS MUST BE INCREASED */
+    margin: auto;
+    box-shadow: var(--shadow);
+}
+
+
+.two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: flex;
+    flex-direction: column;
+}
+
+input, textarea, select {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+/* ===========================
+   PROFILE PAGE
+   =========================== */
+.profile-card {
+    background: white;
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+.profile-card img {
+    width: 150px;
+    height: 150px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+.profile-details{
+    display: flex;
+    flex-direction: column;
+    /* text-align: left;
+    margin-left: auto;
+    margin-right: auto; */
+}
+
+
+/* ===========================
+   EMPLOYEE DETAIL PAGE
+   =========================== */
+.detail-container {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+}
+
+
+.detail-photo {
+    width: 180px;
+    height: 180px;
+    border-radius: 12px;
+    object-fit: cover;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.detail-box {
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: left;
+    box-shadow: var(--shadow);
+}
+
+.detail-box label {
+    font-weight: bold;
+    margin-bottom: 6px;
+    color: var(--blue-1);
+}
+
+.detail-value {
+    background: #eef3ff;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.detail-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+
+/* MAIN PROFILE CARD CONTAINER */
+.emp-profile-card {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 25px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 25px;
+}
+
+/* LEFT SIDE PHOTO & BASIC INFO */
+.emp-photo-box {
+    text-align: center;
+    padding: 10px;
+}
+
+.emp-photo {
+    width: 200px;
+    height: 200px;
+    border-radius: 16px;
+    object-fit: cover;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.emp-subtext {
+    font-size: 14px;
+    color: #666;
+    margin-top: 4px;
+}
+
+/* RIGHT SIDE GRID OF DETAILS */
+.emp-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 20px;
+}
+
+.detail-box {
+    background: #f8f9fc;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+}
+
+.detail-box label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+}
+
+.detail-value {
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+/* ACTION BUTTONS */
+.detail-actions {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.detail-actions .btn {
+    padding: 10px 16px;
+    margin: 5px;
+    font-size: 15px;
+}
+
+
+/* ===========================
+   AUTH PANEL
+   =========================== */
+.auth-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 320px;
+    transform: translate(-50%, -50%);
+    display: none;
+    z-index: 900;
+}
+
+.auth-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+
+.error {
+    background: #ffcece;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    color: #8b0000;
+}
+
+/* ===========================
+   MOBILE HANDLING
+   =========================== */
+@media (max-width: 768px) {
+    .two-col {
+        grid-template-columns: 1fr;
+    }
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 
+.add-employee-header{
+    width: auto; 
+    text-align: 
+    center; color: green;
+     margin-bottom: 20px;
+     font-size: medium;
+} */
+
+.emp-table-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.emp-card img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.page-title-center {
+    text-align: center;
+    margin-bottom: 15px;
+    color:#444;
+}
+
+.emp-detail-wrapper {
+    display: flex;
+    gap: 30px;
+    padding: 25px;
+    border-radius: 15px;
+    background: white;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.emp-left-panel {
+    width: 260px;
+    text-align: center;
+}
+
+.emp-photo-large {
+    width: 220px;
+    height: 220px;
+    border-radius: 14px;
+    object-fit: cover;
+    border: 2px solid #eee;
+}
+
+.emp-name {
+    margin-top: 12px;
+}
+
+.emp-info-sub {
+    color: #666;
+    margin-top: 4px;
+}
+
+.emp-detail-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px 20px;
+}
+
+.emp-detail-item {
+    background: #f8f9fa;
+    padding: 10px 14px;
+    border-radius: 8px;
+}
+
+.emp-detail-item label {
+    font-weight: bold;
+    display: block;
+    color: #333;
+}
+
+.emp-detail-item span {
+    color: #555;
+}
+
+.page-name {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #646062;
+}
+
+.employee-header-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.search-box {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    width: 250px;
+}
+
+
+
+

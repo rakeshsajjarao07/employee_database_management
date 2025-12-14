@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee ERP</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="app">
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="logo">ERP</div>
+            <div class="brand-text">Employee ERP</div>
+        </div>
+
+        <nav class="nav">
+            <button class="nav-btn" data-page="home">Dashboard</button>
+            <button class="nav-btn" data-page="employees">Employees</button>
+            <button class="nav-btn" id="nav-add-employee" data-page="add-employee">Add Employee</button>
+            <button class="nav-btn" data-page="profile">Profile</button>
+        </nav>
+
+        <div class="sidebar-foot">
+            <button id="sidebar-auth-btn" class="ghost">Sign In</button>
+        </div>
+    </aside>
+
+    <!-- ================= MAIN CONTENT ================= -->
+    <main class="main">
+
+        <!-- TOP BAR -->
+        <header class="topbar">
+            <div class="left">
+                <button class="icon-btn" id="menu-toggle">☰</button>
+                <h1 id="page-title">Dashboard</h1>
+            </div>
+            <div class="right">
+                <div class="user-mini">
+                    <img id="user-mini-img" src="images/default-user.jpg">
+                    <button id="top-signin-btn" class="btn primary small">Sign In</button>
+
+                    <div id="user-details-pop" class="user-details-pop">
+
+                        <!-- 2 -->
+                        <img id="pop-img" src="images/default-user.jpg">
+                        <div id="pop-name">Guest</div>
+                        <div id="pop-employeeid">Employee ID: -</div>
+
+                        <button id="pop-signout-btn" class="btn danger small" style="
+                            margin-top: 10px;
+                            width: 100%;
+                            background: #e63946;
+                            color: white;
+                            border-radius: 6px;
+                            padding: 6px 0;
+                            border: none;
+                            cursor: pointer;
+                        ">Sign Out</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- ================= HOME / DASHBOARD ================= -->
+        <section id="home" class="page active">
+              
+            <div class="cards">
+                <div class="card">
+                    <h3>Total Employees</h3>
+                    <div id="stat-total" class="card-value">0</div>
+                </div>
+                <div class="card">
+                    <h3>Departments</h3>
+                    <div id="stat-depts" class="card-value">0</div>
+                </div>
+                <div class="card">
+                    <h3>You Are</h3>
+                    <div id="stat-role" class="card-value">Guest</div>
+                </div>
+            </div>
+
+            <div class="welcome-box">
+                <h2>Welcome to the Employee Management Application</h2>
+                <p>Use the left menu to manage employees.</p>
+            </div>
+        </section>
+
+        <!-- ================= EMPLOYEES PAGE ================= -->
+        <!-- <h2 style="align-items: center; 
+        margin-bottom: 20px; color: grey;
+         text-align: center; border-bottom: 20px;"> All Employee Details</h2> -->
+        <section id="employees" class="page">
+            <h2 class="page-name">All Employee Details</h2>
+            <div class="employee-header-actions">
+    <button id="download-excel-btn" class="btn primary">⬇ Download Excel</button>
+
+    <input id="employee-search" class="search-box" placeholder="Search by Name or Code">
+</div>
+
+            <div id="employees-list" class="employees-grid"></div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Employee Code</th>
+                            <th>Name</th>
+                            <th>Department</th>
+                            <th>Designation</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="employees-tbody"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ================= ADD / EDIT EMPLOYEE ================= -->
+<section id="add-employee" class="page">
+             <h2 class="page-name" id="add-emp-title" style="text-align: center;">Add Employee</h2>
+            <!-- <h2 id="add-employee-header" class="add-employee-header" style="width: auto; 
+            align-items: center;
+            color: green;
+            margin-bottom: 30px;
+            text-align: center;">Add Employee</h2> -->
+
+            <!-- Only visible in EDIT mode -->
+
+            <!-- <button id="download-employee-pdf-btn" class="btn primary">⬇ Download PDF</button> -->
+
+           
+            <button id="btn-edit-back" class="btn ghost" style="display:none; margin-bottom:10px;">
+                ⬅ Back to Details
+            </button>
+
+            <div class="form-card">
+                
+                <form id="add-employee-form" autocomplete="off">
+
+                    <div class="two-col">
+                        <label>Employee Code
+                            <input name="employeeCode" required>
+                        </label>
+                        <label>Employee Name
+                            <input name="employeeName" required>
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>Date of Joining
+                            <input type="date" name="dateOfJoining">
+                        </label>
+                        <label>Reporting To
+                            <input name="reportingTo">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>Division Name
+                            <input name="divisionName">
+                        </label>
+                        <label>Designation Name
+                            <input name="designationName">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>Location Name
+                            <input name="locationName">
+                        </label>
+                        <label>Department Name
+                            <input name="departmentName">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>Active Status
+                            <input name="activeStatus">
+                        </label>
+                        <label>Email ID
+                            <input name="emailId">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>Personal Email ID
+                            <input name="personalEmailId">
+                        </label>
+                        <label>Phone No
+                            <input name="phoneNo">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>Official No
+                            <input name="officialNo">
+                        </label>
+                        <label>Present User
+                            <input name="presentUser">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>Laptop Type
+                            <input name="laptopType">
+                        </label>
+                        <label>Old User 1
+                            <input name="oldUser1">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>Old User 2
+                            <input name="oldUser2">
+                        </label>
+                        <label>Supplier
+                            <input name="supplier">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>Object
+                            <input name="systemObject">
+                        </label>
+                        <label>Anti Glare Glass
+                            <input name="antiGlareGlass">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>Service Tag
+                            <input name="serviceTag">
+                        </label>
+                        <label>Brand Model
+                            <input name="brandModel">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>Date of Purchase
+                            <input type="date" name="dateOfPurchase">
+                        </label>
+                        <label>Warranty End
+                            <input type="date" name="warrantyEnd">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>OS
+                            <input name="os">
+                        </label>
+                        <label>OS Type
+                            <input name="osType">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>AutoCad
+                            <input name="autoCad">
+                        </label>
+                        <label>AutoCad Type
+                            <input name="autoCadType">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>MS Office
+                            <input name="msOffice">
+                        </label>
+                        <label>Outlook Mail
+                            <input name="outlookMail">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>MS Office Type
+                            <input name="msOfficeType">
+                        </label>
+                        <label>Warranty
+                            <input name="warranty">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>Laptop/PC Name
+                            <input name="laptopNamePcName">
+                        </label>
+                        <label>Windows Key
+                            <input name="windowsKey">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>Anti Virus
+                            <input name="antiVirus">
+                        </label>
+                        <label>Host
+                            <input name="host">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>IP Address
+                            <input name="ipAddress">
+                        </label>
+                        <label>Image
+                            <input type="file" name="image" accept="image/*">
+                        </label>
+                    </div>
+
+                    <div style="text-align:center; margin-top:12px;">
+                        <button class="btn primary" type="submit">Add Employee</button>
+                        <button class="btn ghost" type="reset">Reset</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </section>
+
+
+        <section id="employee-edit" class="page">
+
+    <h2 class="page-name">Edit Employee</h2>
+
+    <form id="edit-employee-form" class="form-card" enctype="multipart/form-data">
+
+        
+                    <div class="two-col">
+                        <label>Employee Code
+                            <input name="employeeCode" required>
+                        </label>
+                        <label>Employee Name
+                            <input name="employeeName" required>
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>Date of Joining
+                            <input type="date" name="dateOfJoining">
+                        </label>
+                        <label>Reporting To
+                            <input name="reportingTo">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>Division Name
+                            <input name="divisionName">
+                        </label>
+                        <label>Designation Name
+                            <input name="designationName">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>Location Name
+                            <input name="locationName">
+                        </label>
+                        <label>Department Name
+                            <input name="departmentName">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>Active Status
+                            <input name="activeStatus">
+                        </label>
+                        <label>Email ID
+                            <input name="emailId">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>Personal Email ID
+                            <input name="personalEmailId">
+                        </label>
+                        <label>Phone No
+                            <input name="phoneNo">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>Official No
+                            <input name="officialNo">
+                        </label>
+                        <label>Present User
+                            <input name="presentUser">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>Laptop Type
+                            <input name="laptopType">
+                        </label>
+                        <label>Old User 1
+                            <input name="oldUser1">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>Old User 2
+                            <input name="oldUser2">
+                        </label>
+                        <label>Supplier
+                            <input name="supplier">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>Object
+                            <input name="systemObject">
+                        </label>
+                        <label>Anti Glare Glass
+                            <input name="antiGlareGlass">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>Service Tag
+                            <input name="serviceTag">
+                        </label>
+                        <label>Brand Model
+                            <input name="brandModel">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>Date of Purchase
+                            <input type="date" name="dateOfPurchase">
+                        </label>
+                        <label>Warranty End
+                            <input type="date" name="warrantyEnd">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>OS
+                            <input name="os">
+                        </label>
+                        <label>OS Type
+                            <input name="osType">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>AutoCad
+                            <input name="autoCad">
+                        </label>
+                        <label>AutoCad Type
+                            <input name="autoCadType">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>MS Office
+                            <input name="msOffice">
+                        </label>
+                        <label>Outlook Mail
+                            <input name="outlookMail">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>MS Office Type
+                            <input name="msOfficeType">
+                        </label>
+                        <label>Warranty
+                            <input name="warranty">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>Laptop/PC Name
+                            <input name="laptopNamePcName">
+                        </label>
+                        <label>Windows Key
+                            <input name="windowsKey">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>Anti Virus
+                            <input name="antiVirus">
+                        </label>
+                        <label>Host
+                            <input name="host">
+                        </label>
+                    </div>
+
+                    <div class="two-col">
+                        <label>IP Address
+                            <input name="ipAddress">
+                        </label>
+                        <label>Image
+                            <input type="file" name="image" accept="image/*">
+                        </label>
+                    </div>
+        <div style="margin-top:20px; text-align:center;">
+            <button type="submit" class="btn primary">Update Employee</button>
+            <button type="button" class="btn ghost" id="edit-back-btn">⬅ Back</button>
+        </div>
+
+    </form>
+
+</section>
+
+
+        <!-- ================= PROFILE PAGE ================= -->
+        <section id="profile" class="page">
+             <h2 class="page-name">Profile</h2>
+            <div class="profile-card">
+                <!--  1  -->
+                <img id="profile-img" src="images/default-user.jpg">
+                <div class="profile-details">
+
+                    <!-- <table>
+                        <tr>
+                            <td><b>Username:</b> <span id="profile-username">-</span></td>
+                            <td><b>Employee ID:</b> <span id="profile-employeeId">-</span></td> 
+                            <td><b>Email:</b> <span id="profile-email">-</span></td> 
+                            <td><b>Department: </b> <span id="profile-department">-</span></td>
+                        </tr>
+                    </table> -->
+                    <p><b>Username:</b> <span id="profile-username">-</span></p>
+                    <p><b>Employee ID:</b> <span id="profile-employeeId">-</span></p>
+                    <p><b>Email:</b> <span id="profile-email">-</span></p>
+                    <p><b>Department:</b> <span id="profile-department">-</span></p>
+                </div>
+            </div>
+        </section>
+
+       <section id="employee-detail" class="page">
+<!-- 
+    <h2 class="page-title-center">Employee Full Profile</h2> -->
+
+    <div class="emp-detail-wrapper">
+
+        <!-- LEFT PANEL: PHOTO + BASIC INFO -->
+        <div class="emp-left-panel">
+            <img id="emp-detail-img" class="emp-photo-large">
+
+            <h2 id="emp-detail-name" class="emp-name"></h2>
+            <p id="emp-detail-code" class="emp-info-sub"></p>
+            <p id="emp-detail-dept" class="emp-info-sub"></p>
+        </div>
+
+        <!-- RIGHT PANEL: ALL FIELDS IN STRUCTURED GRID -->
+        <div id="emp-detail-fields" class="emp-detail-grid">
+            <!-- JS fills details here -->
+        </div>
+    </div>
+
+    <div class="detail-actions">
+        <button id="btn-back" class="edit-back-btn">⬅ Back</button>
+        <button id="btn-edit" class="btn primary">✏ Edit Employee</button>
+
+         <button id="btn-download-pdf" class="btn secondary">⬇ Download PDF</button>
+    </div>
+</section>
+
+<!-- 
+<section id="employee-detail" class="page">
+    <div class="detail-container">
+        <img id="emp-detail-img" class="detail-photo">
+        <div id="emp-detail-fields" class="detail-grid"></div>
+    </div>
+
+    <div class="detail-actions">
+        <button id="btn-back" class="btn ghost">⬅ Go Back</button>
+        <button id="btn-edit" class="btn primary">✏ Edit Employee</button>
+    </div>
+</section> -->
+
+
+
+        <!-- ================= AUTH PANEL ================= -->
+        <div id="auth-panel" class="auth-panel">
+            <div id="signin-card" class="auth-card">
+                <h3>Sign In</h3>
+                <form id="signin-form">
+                    <label>Username<input id="signin-username"></label>
+                    <label>Employee ID<input id="signin-employeeId"></label>
+                    <label>Password<input id="signin-password" type="password"></label>
+                    <button class="btn primary" type="submit">Sign In</button>
+                    <button type="button" id="open-signup" class="btn ghost">Sign Up</button>
+                </form>
+            </div>
+
+            <div id="signup-card" class="auth-card">
+                <h3>Sign Up</h3>
+                <form id="signup-form">
+
+                    <label>Image<input id="signup-image" name="image" type="file" required></label>
+
+                    <label>Username<input id="signup-username" name="username" required></label>
+
+                    <label>Employee ID<input id="signup-employeeId" name="employeeId" required></label>
+
+                    <label>Email<input id="signup-email" name="email" type="email" required></label>
+
+                    <label>Department
+                        <select id="signup-department" name="department" required>
+                            <option value="">Select</option>
+                            <option value="IT">IT</option>
+                            <option value="HR">HR</option>
+                           <option value="Others">Others</option>
+                          
+
+
+                        </select>
+                    </label>
+
+                     <div id="custom-dept-box" style="display:none;">
+                                <label>Enter Department
+                                    <input type="text" id="custom-dept">
+                                </label>
+                            </div>
+
+                    <label>Password<input id="signup-password" name="password" type="password" required></label>
+
+                    <label>Confirm Password<input id="signup-confirmPassword" name="confirmPassword" type="password" required></label>
+
+                    <button class="btn primary" type="submit">Sign Up</button>
+                    <button class="btn ghost" id="open-signin" type="button">Back</button>
+
+                </form>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<script src="config.js"></script>
+<script src="api.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>

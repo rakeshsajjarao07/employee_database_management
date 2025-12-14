@@ -248,3 +248,10 @@ backend/
 - Backend-friendly request formats  
 
 ---
+
+GET-CODE from:  https://github.com/rakeshsajjarao07/employee_database_management
+
+developed by:
+-------------
+NAME: Sajjarao Rakesh
+linkedin: https://www.linkedin.com/in/sajjarao-rakesh-837234281/
